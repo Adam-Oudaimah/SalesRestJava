@@ -1,0 +1,10 @@
+server:
+  port: 8000
+  servlet.context-path: /
+spring:
+  application:
+    name: SalesServiceSpec
+
+logging.level.org.springframework.web: INFO
+spring.http.multipart.enabled: true
+spring.http.multipart.location: '/upload'

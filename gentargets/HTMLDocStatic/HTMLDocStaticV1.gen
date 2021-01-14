@@ -1,0 +1,109 @@
+---
+name: "HTMLDocStaticV1"
+genTemplateId: "com.reprezen.genflow.openapi.generator.StaticHtmlGenerator"
+relativeOutputDir: temp
+prerequisites: null
+primarySource: 
+  path: "../../SalesRestSpec/spec-v1.yaml"
+namedSources: null 
+# The parameters object contains variables that are processed directly by the GenTemplate.
+parameters: 
+  # Sort method arguments to place required parameters before optional parameters.
+  sortParamsByRequiredFlag: null
+  
+  # Whether to ensure parameter names are unique in an operation (rename parameters that are not).
+  ensureUniqueParams: null
+  
+  # boolean, toggles whether unicode identifiers are allowed in names or not, default is false
+  allowUnicodeIdentifiers: null
+  
+  # Add form or body parameters to the beginning of the parameter list.
+  prependFormOrBodyParameters: null
+  
+  # short name of the application
+  appName: SalesApi
+  
+  # description of the application
+  appDescription: null
+  
+  # a URL where users can get more information about the application
+  infoUrl: null
+  
+  # an email address to contact for inquiries about the application
+  infoEmail: null
+  
+  # a short description of the license
+  licenseInfo: null
+  
+  # a URL pointing to the full license
+  licenseUrl: null
+  
+  # root package for generated code
+  invokerPackage: null
+  
+  # groupId in generated pom.xml
+  groupId: null
+  
+  # artifactId in generated pom.xml
+  artifactId: null
+  
+  # artifact version in generated pom.xml
+  artifactVersion: null
+  
+  # Contents of OpenAPI Generator configuration file.
+  # This is the file that would be passed with the --config option on the OpenAPI Generator
+  # command line. The JSON contents of that file should be the value of this parameter.
+  # This parameter need not be used. If it is absent, all string-valued parameters are collected into
+  # a map that is then passed to the OpenAPI Generator module. If a map is provided here, then
+  # string-valued parameters are still copied in, overriding like-named values appearing in the map.
+  openApiCodegenConfig: null
+  
+  # System properties to set, as in the -D option of OpenAPI Generator command line.
+  # Each property should be a JSON object with a name/value pair for each property.
+  # Example: for '-Dmodels -Dapis=User,Pets' use the following:
+  # value:
+  #   models: ''
+  #   apis: Users,Pets
+  openApiCodegenSystemProperties: null
+  
+  # Specifies types that are provided by the API implementation, and so should not be generated.
+  # Type names should be unqualified. The qualified name should be defined in importMappings.
+  # The value is an array of type names. Example usage:
+  #   languageSpecificPrimitives:
+  #     - Pet
+  #     - User
+  languageSpecificPrimitives: null
+  
+  # Sets mappings between general-purpose types and declared types in the generated code. Types
+  # may include string, number, integer, boolean, array, object, or others defined by the generator.
+  # Types should be unqualified. The qualified name should be defined in importMappings. Example usage:
+  #   typeMappings:
+  #     array: Set
+  #     map: LinkedHashMap
+  typeMappings: null
+  
+  # Specifies mappings between general-purpose types and their runtime types, for cases where
+  # generated code may need to instantiate that type. Types may include map, array, or other
+  # types as defined by the generator. Type names should be unqualified. The qualified name should
+  # be defined in importMappings. Example usage:
+  #   instantiationTypes:
+  #     array: HashSet
+  #     map: LinkedHashMap
+  instantiationTypes: null
+  
+  # Specifies mappings between an unqualified class or interface name and the qualified name that
+  # should be imported where that class is used. Example usage:
+  #   importMappings:
+  #     HashSet: java.util.HashSet
+  #     LinkedHashMap: java.util.LinkedHashMap
+  #     User: com.mycomp.User
+  importMappings: null
+  
+  # Specifies a mapping between reserved keywords in the target language and legal, non-reserved
+  # names. Where the OpenAPI document uses a reserved word as a type, property, operation, or
+  # parameter name, the generator will substitute the name provided in the map. Otherwise, the
+  # default underscore-prefixed _<name> will be applied. Example usage:
+  #   reservedWordsMappings:
+  #     switch: xswitch
+  #     transient: xtransient
+  reservedWordsMappings: null

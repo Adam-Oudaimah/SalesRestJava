@@ -1,0 +1,37 @@
+apply plugin: 'java'
+    
+ext {
+    eclipseProjDir = "../../"
+    tarDir = "${eclipseProjDir}/doc"
+    tempDir = "${projectDir}/temp"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.reprezen.genflow', name: 'standard-gentemplates', version: '[1.4.1,2.0-alpha)'
+    compile group: 'org.openapitools', name: 'openapi-generator', version: '4.0.3'
+    compile fileTree(dir: "${eclipseProjDir}/../shared/GenTemplates", include: ['*.jar'])
+    compile fileTree(dir: "${eclipseProjDir}/lib", include: ['*.jar'])
+}
+
+task(execGenTarget, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.reprezen.genflow.api.util.GeneratorLauncher'
+    classpath = sourceSets.main.runtimeClasspath
+    args "${projectDir}/HTMLDocStaticV1.gen"
+    
+    doLast {
+        mkdir tarDir
+        copy {
+            from "${tempDir}/index.html"
+            rename 'index.html', 'doc-static.html'
+            into "${tarDir}"
+        }
+        project.delete(tempDir)
+    }
+}
+
+defaultTasks 'execGenTarget' 

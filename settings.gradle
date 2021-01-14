@@ -1,0 +1,9 @@
+rootProject.name = 'SalesRestJava'
+
+// Required to call gradle tasks from subfolders (code generators)
+include 'JavaClient'
+project(':JavaClient').projectDir = new File(settingsDir, 'gentargets/JavaClient')
+include 'JavaSpringServer'
+project(':JavaSpringServer').projectDir = new File(settingsDir, 'gentargets/JavaSpringServer')
+include 'HTMLDocStatic'
+project(':HTMLDocStatic').projectDir = new File(settingsDir, 'gentargets/HTMLDocStatic')

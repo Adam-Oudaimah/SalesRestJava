@@ -1,0 +1,4 @@
+[submodule "SalesRestSpec"]
+	path = SalesRestSpec
+	url = https://github.com/Adam-Oudaimah/SalesRestSpec.git
+	branch = main
