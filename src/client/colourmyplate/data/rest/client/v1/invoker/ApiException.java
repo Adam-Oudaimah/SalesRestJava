@@ -16,7 +16,7 @@ package colourmyplate.data.rest.client.v1.invoker;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-22T22:03:48.831370200+03:00[Asia/Damascus]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-23T12:19:30.119728+03:00[Asia/Damascus]")
 public class ApiException extends Exception {
     private int code = 0;
     private Map<String, List<String>> responseHeaders = null;

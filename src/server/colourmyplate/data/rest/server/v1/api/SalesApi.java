@@ -26,7 +26,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-10-22T22:03:56.505222+03:00[Asia/Damascus]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-10-23T12:19:40.042692600+03:00[Asia/Damascus]")
 
 @Validated
 @Api(value = "sales", description = "the sales API")
@@ -40,7 +40,7 @@ public interface SalesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The new sale operation successfully stored."),
         @ApiResponse(code = 403, message = "Storing the new sale operation could not be completed."),
-        @ApiResponse(code = 404, message = "Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found)."),
+        @ApiResponse(code = 404, message = "Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found."),
         @ApiResponse(code = 500, message = "Internal server error.") })
     @RequestMapping(value = "/sales/create",
         consumes = { "application/json" },
@@ -77,11 +77,12 @@ public interface SalesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The sale operation metadata successfully updated."),
         @ApiResponse(code = 403, message = "Updating the sale operation metadata could not be completed."),
+        @ApiResponse(code = 404, message = "Updating the sale operation could not be completed because some meta data could not be found."),
         @ApiResponse(code = 500, message = "Internal server error.") })
-    @RequestMapping(value = "/sales/update",
+    @RequestMapping(value = "/sales/{saleId}/update",
         consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<Void> updateSaleOperation(@ApiParam(value = "The updated sale operation metadata." ,required=true )  @Valid @RequestBody SaleDAO saleDAO) {
+        method = RequestMethod.PUT)
+    default ResponseEntity<Void> updateSaleOperation(@ApiParam(value = "Numeric ID of the client to get",required=true) @PathVariable("saleId") Integer saleId,@ApiParam(value = "The updated sale operation metadata." ,required=true )  @Valid @RequestBody SaleDAO saleDAO) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

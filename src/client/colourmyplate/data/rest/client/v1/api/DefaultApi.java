@@ -285,7 +285,7 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The new sale operation successfully stored. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Storing the new sale operation could not be completed. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
@@ -341,7 +341,7 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The new sale operation successfully stored. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Storing the new sale operation could not be completed. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
@@ -360,7 +360,7 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The new sale operation successfully stored. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Storing the new sale operation could not be completed. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
@@ -381,7 +381,7 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The new sale operation successfully stored. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Storing the new sale operation could not be completed. </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
@@ -717,6 +717,7 @@ public class DefaultApi {
     }
     /**
      * Build call for updateClient
+     * @param clientId Numeric ID of the client to get (required)
      * @param clientDAO The updated client metadata. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -725,14 +726,16 @@ public class DefaultApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The client metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the client could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateClientCall(ClientDAO clientDAO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateClientCall(Integer clientId, ClientDAO clientDAO, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = clientDAO;
 
         // create path and map variables
-        String localVarPath = "/clients/update";
+        String localVarPath = "/clients/{clientId}/update"
+            .replaceAll("\\{" + "clientId" + "\\}", localVarApiClient.escapeString(clientId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -753,11 +756,16 @@ public class DefaultApi {
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[] {  };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateClientValidateBeforeCall(ClientDAO clientDAO, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateClientValidateBeforeCall(Integer clientId, ClientDAO clientDAO, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'clientId' is set
+        if (clientId == null) {
+            throw new ApiException("Missing the required parameter 'clientId' when calling updateClient(Async)");
+        }
         
         // verify the required parameter 'clientDAO' is set
         if (clientDAO == null) {
@@ -765,7 +773,7 @@ public class DefaultApi {
         }
         
 
-        okhttp3.Call localVarCall = updateClientCall(clientDAO, _callback);
+        okhttp3.Call localVarCall = updateClientCall(clientId, clientDAO, _callback);
         return localVarCall;
 
     }
@@ -773,22 +781,25 @@ public class DefaultApi {
     /**
      * Update an exsiting client metadata.
      * 
+     * @param clientId Numeric ID of the client to get (required)
      * @param clientDAO The updated client metadata. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The client metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the client could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public void updateClient(ClientDAO clientDAO) throws ApiException {
-        updateClientWithHttpInfo(clientDAO);
+    public void updateClient(Integer clientId, ClientDAO clientDAO) throws ApiException {
+        updateClientWithHttpInfo(clientId, clientDAO);
     }
 
     /**
      * Update an exsiting client metadata.
      * 
+     * @param clientId Numeric ID of the client to get (required)
      * @param clientDAO The updated client metadata. (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -796,17 +807,19 @@ public class DefaultApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The client metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the client could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateClientWithHttpInfo(ClientDAO clientDAO) throws ApiException {
-        okhttp3.Call localVarCall = updateClientValidateBeforeCall(clientDAO, null);
+    public ApiResponse<Void> updateClientWithHttpInfo(Integer clientId, ClientDAO clientDAO) throws ApiException {
+        okhttp3.Call localVarCall = updateClientValidateBeforeCall(clientId, clientDAO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Update an exsiting client metadata. (asynchronously)
      * 
+     * @param clientId Numeric ID of the client to get (required)
      * @param clientDAO The updated client metadata. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -815,17 +828,19 @@ public class DefaultApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The client metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the client could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateClientAsync(ClientDAO clientDAO, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateClientAsync(Integer clientId, ClientDAO clientDAO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateClientValidateBeforeCall(clientDAO, _callback);
+        okhttp3.Call localVarCall = updateClientValidateBeforeCall(clientId, clientDAO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateProduct
+     * @param productId Numeric ID of the product to get (required)
      * @param productDAO The updated product metadata. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -834,14 +849,16 @@ public class DefaultApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The product metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the product could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateProductCall(ProductDAO productDAO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateProductCall(Integer productId, ProductDAO productDAO, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = productDAO;
 
         // create path and map variables
-        String localVarPath = "/products/update";
+        String localVarPath = "/products/{productId}/update"
+            .replaceAll("\\{" + "productId" + "\\}", localVarApiClient.escapeString(productId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -862,11 +879,16 @@ public class DefaultApi {
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[] {  };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateProductValidateBeforeCall(ProductDAO productDAO, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateProductValidateBeforeCall(Integer productId, ProductDAO productDAO, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'productId' is set
+        if (productId == null) {
+            throw new ApiException("Missing the required parameter 'productId' when calling updateProduct(Async)");
+        }
         
         // verify the required parameter 'productDAO' is set
         if (productDAO == null) {
@@ -874,7 +896,7 @@ public class DefaultApi {
         }
         
 
-        okhttp3.Call localVarCall = updateProductCall(productDAO, _callback);
+        okhttp3.Call localVarCall = updateProductCall(productId, productDAO, _callback);
         return localVarCall;
 
     }
@@ -882,22 +904,25 @@ public class DefaultApi {
     /**
      * Update an exsiting product metadata.
      * 
+     * @param productId Numeric ID of the product to get (required)
      * @param productDAO The updated product metadata. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The product metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the product could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public void updateProduct(ProductDAO productDAO) throws ApiException {
-        updateProductWithHttpInfo(productDAO);
+    public void updateProduct(Integer productId, ProductDAO productDAO) throws ApiException {
+        updateProductWithHttpInfo(productId, productDAO);
     }
 
     /**
      * Update an exsiting product metadata.
      * 
+     * @param productId Numeric ID of the product to get (required)
      * @param productDAO The updated product metadata. (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -905,17 +930,19 @@ public class DefaultApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The product metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the product could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateProductWithHttpInfo(ProductDAO productDAO) throws ApiException {
-        okhttp3.Call localVarCall = updateProductValidateBeforeCall(productDAO, null);
+    public ApiResponse<Void> updateProductWithHttpInfo(Integer productId, ProductDAO productDAO) throws ApiException {
+        okhttp3.Call localVarCall = updateProductValidateBeforeCall(productId, productDAO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Update an exsiting product metadata. (asynchronously)
      * 
+     * @param productId Numeric ID of the product to get (required)
      * @param productDAO The updated product metadata. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -924,17 +951,19 @@ public class DefaultApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The product metadata successfully updated. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the product could not be completed because it could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateProductAsync(ProductDAO productDAO, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateProductAsync(Integer productId, ProductDAO productDAO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateProductValidateBeforeCall(productDAO, _callback);
+        okhttp3.Call localVarCall = updateProductValidateBeforeCall(productId, productDAO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateSaleOperation
+     * @param saleId Numeric ID of the client to get (required)
      * @param saleDAO The updated sale operation metadata. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -944,14 +973,16 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The sale operation metadata successfully updated. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Updating the sale operation metadata could not be completed. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the sale operation could not be completed because some meta data could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSaleOperationCall(SaleDAO saleDAO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateSaleOperationCall(Integer saleId, SaleDAO saleDAO, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = saleDAO;
 
         // create path and map variables
-        String localVarPath = "/sales/update";
+        String localVarPath = "/sales/{saleId}/update"
+            .replaceAll("\\{" + "saleId" + "\\}", localVarApiClient.escapeString(saleId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -972,11 +1003,16 @@ public class DefaultApi {
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[] {  };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateSaleOperationValidateBeforeCall(SaleDAO saleDAO, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateSaleOperationValidateBeforeCall(Integer saleId, SaleDAO saleDAO, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'saleId' is set
+        if (saleId == null) {
+            throw new ApiException("Missing the required parameter 'saleId' when calling updateSaleOperation(Async)");
+        }
         
         // verify the required parameter 'saleDAO' is set
         if (saleDAO == null) {
@@ -984,7 +1020,7 @@ public class DefaultApi {
         }
         
 
-        okhttp3.Call localVarCall = updateSaleOperationCall(saleDAO, _callback);
+        okhttp3.Call localVarCall = updateSaleOperationCall(saleId, saleDAO, _callback);
         return localVarCall;
 
     }
@@ -992,6 +1028,7 @@ public class DefaultApi {
     /**
      * Update an exsiting sale operation metadata.
      * 
+     * @param saleId Numeric ID of the client to get (required)
      * @param saleDAO The updated sale operation metadata. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -999,16 +1036,18 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The sale operation metadata successfully updated. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Updating the sale operation metadata could not be completed. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the sale operation could not be completed because some meta data could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public void updateSaleOperation(SaleDAO saleDAO) throws ApiException {
-        updateSaleOperationWithHttpInfo(saleDAO);
+    public void updateSaleOperation(Integer saleId, SaleDAO saleDAO) throws ApiException {
+        updateSaleOperationWithHttpInfo(saleId, saleDAO);
     }
 
     /**
      * Update an exsiting sale operation metadata.
      * 
+     * @param saleId Numeric ID of the client to get (required)
      * @param saleDAO The updated sale operation metadata. (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1017,17 +1056,19 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The sale operation metadata successfully updated. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Updating the sale operation metadata could not be completed. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the sale operation could not be completed because some meta data could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateSaleOperationWithHttpInfo(SaleDAO saleDAO) throws ApiException {
-        okhttp3.Call localVarCall = updateSaleOperationValidateBeforeCall(saleDAO, null);
+    public ApiResponse<Void> updateSaleOperationWithHttpInfo(Integer saleId, SaleDAO saleDAO) throws ApiException {
+        okhttp3.Call localVarCall = updateSaleOperationValidateBeforeCall(saleId, saleDAO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Update an exsiting sale operation metadata. (asynchronously)
      * 
+     * @param saleId Numeric ID of the client to get (required)
      * @param saleDAO The updated sale operation metadata. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -1037,12 +1078,13 @@ public class DefaultApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> The sale operation metadata successfully updated. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Updating the sale operation metadata could not be completed. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Updating the sale operation could not be completed because some meta data could not be found. </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSaleOperationAsync(SaleDAO saleDAO, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateSaleOperationAsync(Integer saleId, SaleDAO saleDAO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateSaleOperationValidateBeforeCall(saleDAO, _callback);
+        okhttp3.Call localVarCall = updateSaleOperationValidateBeforeCall(saleId, saleDAO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

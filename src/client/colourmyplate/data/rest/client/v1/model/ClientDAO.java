@@ -28,7 +28,7 @@ import java.io.Serializable;
 /**
  * ClientDAO
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-22T22:03:48.831370200+03:00[Asia/Damascus]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-23T12:19:30.119728+03:00[Asia/Damascus]")
 public class ClientDAO implements Serializable {
   private static final long serialVersionUID = 1L;
 

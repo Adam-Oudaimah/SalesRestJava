@@ -202,9 +202,9 @@ font-style: italic;
   <li><a href="#getClients"><code><span class="http-method">get</span> /clients</code></a></li>
   <li><a href="#getProducts"><code><span class="http-method">get</span> /products</code></a></li>
   <li><a href="#getSalesOperations"><code><span class="http-method">get</span> /sales</code></a></li>
-  <li><a href="#updateClient"><code><span class="http-method">post</span> /clients/update</code></a></li>
-  <li><a href="#updateProduct"><code><span class="http-method">post</span> /products/update</code></a></li>
-  <li><a href="#updateSaleOperation"><code><span class="http-method">post</span> /sales/update</code></a></li>
+  <li><a href="#updateClient"><code><span class="http-method">put</span> /clients/{clientId}/update</code></a></li>
+  <li><a href="#updateProduct"><code><span class="http-method">put</span> /products/{productId}/update</code></a></li>
+  <li><a href="#updateSaleOperation"><code><span class="http-method">put</span> /sales/{saleId}/update</code></a></li>
   </ul>
 
   <h1><a name="Default">Default</a></h1>
@@ -324,7 +324,7 @@ font-style: italic;
     Storing the new sale operation could not be completed.
         <a href="#"></a>
     <h4 class="field-label">404</h4>
-    Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found).
+    Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found.
         <a href="#"></a>
     <h4 class="field-label">500</h4>
     Internal server error.
@@ -499,10 +499,16 @@ font-style: italic;
   <div class="method"><a name="updateClient"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /clients/update</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /clients/{clientId}/update</code></pre></div>
     <div class="method-summary">Update an exsiting client metadata. (<span class="nickname">updateClient</span>)</div>
     <div class="method-notes"></div>
 
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">clientId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Numeric ID of the client to get default: null </div>
+    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -530,6 +536,9 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     The client metadata successfully updated.
         <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Updating the client could not be completed because it could not be found.
+        <a href="#"></a>
     <h4 class="field-label">500</h4>
     Internal server error.
         <a href="#"></a>
@@ -538,10 +547,16 @@ font-style: italic;
   <div class="method"><a name="updateProduct"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /products/update</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /products/{productId}/update</code></pre></div>
     <div class="method-summary">Update an exsiting product metadata. (<span class="nickname">updateProduct</span>)</div>
     <div class="method-notes"></div>
 
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">productId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Numeric ID of the product to get default: null </div>
+    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -569,6 +584,9 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     The product metadata successfully updated.
         <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Updating the product could not be completed because it could not be found.
+        <a href="#"></a>
     <h4 class="field-label">500</h4>
     Internal server error.
         <a href="#"></a>
@@ -577,10 +595,16 @@ font-style: italic;
   <div class="method"><a name="updateSaleOperation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /sales/update</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /sales/{saleId}/update</code></pre></div>
     <div class="method-summary">Update an exsiting sale operation metadata. (<span class="nickname">updateSaleOperation</span>)</div>
     <div class="method-notes"></div>
 
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">saleId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Numeric ID of the client to get default: null </div>
+    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -610,6 +634,9 @@ font-style: italic;
         <a href="#"></a>
     <h4 class="field-label">403</h4>
     Updating the sale operation metadata could not be completed.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Updating the sale operation could not be completed because some meta data could not be found.
         <a href="#"></a>
     <h4 class="field-label">500</h4>
     Internal server error.

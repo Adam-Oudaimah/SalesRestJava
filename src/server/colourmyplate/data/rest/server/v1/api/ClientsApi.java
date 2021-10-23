@@ -26,7 +26,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-10-22T22:03:56.505222+03:00[Asia/Damascus]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-10-23T12:19:40.042692600+03:00[Asia/Damascus]")
 
 @Validated
 @Api(value = "clients", description = "the clients API")
@@ -74,11 +74,12 @@ public interface ClientsApi {
     @ApiOperation(value = "Update an exsiting client metadata.", nickname = "updateClient", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The client metadata successfully updated."),
+        @ApiResponse(code = 404, message = "Updating the client could not be completed because it could not be found."),
         @ApiResponse(code = 500, message = "Internal server error.") })
-    @RequestMapping(value = "/clients/update",
+    @RequestMapping(value = "/clients/{clientId}/update",
         consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<Void> updateClient(@ApiParam(value = "The updated client metadata." ,required=true )  @Valid @RequestBody ClientDAO clientDAO) {
+        method = RequestMethod.PUT)
+    default ResponseEntity<Void> updateClient(@ApiParam(value = "Numeric ID of the client to get",required=true) @PathVariable("clientId") Integer clientId,@ApiParam(value = "The updated client metadata." ,required=true )  @Valid @RequestBody ClientDAO clientDAO) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

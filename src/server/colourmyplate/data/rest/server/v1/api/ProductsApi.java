@@ -26,7 +26,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-10-22T22:03:56.505222+03:00[Asia/Damascus]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-10-23T12:19:40.042692600+03:00[Asia/Damascus]")
 
 @Validated
 @Api(value = "products", description = "the products API")
@@ -74,11 +74,12 @@ public interface ProductsApi {
     @ApiOperation(value = "Update an exsiting product metadata.", nickname = "updateProduct", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The product metadata successfully updated."),
+        @ApiResponse(code = 404, message = "Updating the product could not be completed because it could not be found."),
         @ApiResponse(code = 500, message = "Internal server error.") })
-    @RequestMapping(value = "/products/update",
+    @RequestMapping(value = "/products/{productId}/update",
         consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<Void> updateProduct(@ApiParam(value = "The updated product metadata." ,required=true )  @Valid @RequestBody ProductDAO productDAO) {
+        method = RequestMethod.PUT)
+    default ResponseEntity<Void> updateProduct(@ApiParam(value = "Numeric ID of the product to get",required=true) @PathVariable("productId") Integer productId,@ApiParam(value = "The updated product metadata." ,required=true )  @Valid @RequestBody ProductDAO productDAO) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

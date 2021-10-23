@@ -10,9 +10,9 @@ Method | HTTP request | Description
 [**getClients**](DefaultApi.md#getClients) | **GET** /clients | Get the available clients.
 [**getProducts**](DefaultApi.md#getProducts) | **GET** /products | Get the available products in the store.
 [**getSalesOperations**](DefaultApi.md#getSalesOperations) | **GET** /sales | Get the available sales operations.
-[**updateClient**](DefaultApi.md#updateClient) | **POST** /clients/update | Update an exsiting client metadata.
-[**updateProduct**](DefaultApi.md#updateProduct) | **POST** /products/update | Update an exsiting product metadata.
-[**updateSaleOperation**](DefaultApi.md#updateSaleOperation) | **POST** /sales/update | Update an exsiting sale operation metadata.
+[**updateClient**](DefaultApi.md#updateClient) | **PUT** /clients/{clientId}/update | Update an exsiting client metadata.
+[**updateProduct**](DefaultApi.md#updateProduct) | **PUT** /products/{productId}/update | Update an exsiting product metadata.
+[**updateSaleOperation**](DefaultApi.md#updateSaleOperation) | **PUT** /sales/{saleId}/update | Update an exsiting sale operation metadata.
 
 
 <a name="createClient"></a>
@@ -194,7 +194,7 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | The new sale operation successfully stored. |  -  |
 **403** | Storing the new sale operation could not be completed. |  -  |
-**404** | Storing the new sale operation could not be completed because some meta data (product or seller or client could not be found). |  -  |
+**404** | Storing the new sale operation could not be completed because some meta data (product or seller or client) could not be found. |  -  |
 **500** | Internal server error. |  -  |
 
 <a name="getClients"></a>
@@ -373,7 +373,7 @@ No authorization required
 
 <a name="updateClient"></a>
 # **updateClient**
-> updateClient(clientDAO)
+> updateClient(clientId, clientDAO)
 
 Update an exsiting client metadata.
 
@@ -392,9 +392,10 @@ public class Example {
     defaultClient.setBasePath("http://sales-data-service:8000/v1");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer clientId = 56; // Integer | Numeric ID of the client to get
     ClientDAO clientDAO = new ClientDAO(); // ClientDAO | The updated client metadata.
     try {
-      apiInstance.updateClient(clientDAO);
+      apiInstance.updateClient(clientId, clientDAO);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#updateClient");
       System.err.println("Status code: " + e.getCode());
@@ -410,6 +411,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **clientId** | **Integer**| Numeric ID of the client to get |
  **clientDAO** | [**ClientDAO**](ClientDAO.md)| The updated client metadata. |
 
 ### Return type
@@ -429,11 +431,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The client metadata successfully updated. |  -  |
+**404** | Updating the client could not be completed because it could not be found. |  -  |
 **500** | Internal server error. |  -  |
 
 <a name="updateProduct"></a>
 # **updateProduct**
-> updateProduct(productDAO)
+> updateProduct(productId, productDAO)
 
 Update an exsiting product metadata.
 
@@ -452,9 +455,10 @@ public class Example {
     defaultClient.setBasePath("http://sales-data-service:8000/v1");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer productId = 56; // Integer | Numeric ID of the product to get
     ProductDAO productDAO = new ProductDAO(); // ProductDAO | The updated product metadata.
     try {
-      apiInstance.updateProduct(productDAO);
+      apiInstance.updateProduct(productId, productDAO);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#updateProduct");
       System.err.println("Status code: " + e.getCode());
@@ -470,6 +474,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **productId** | **Integer**| Numeric ID of the product to get |
  **productDAO** | [**ProductDAO**](ProductDAO.md)| The updated product metadata. |
 
 ### Return type
@@ -489,11 +494,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The product metadata successfully updated. |  -  |
+**404** | Updating the product could not be completed because it could not be found. |  -  |
 **500** | Internal server error. |  -  |
 
 <a name="updateSaleOperation"></a>
 # **updateSaleOperation**
-> updateSaleOperation(saleDAO)
+> updateSaleOperation(saleId, saleDAO)
 
 Update an exsiting sale operation metadata.
 
@@ -512,9 +518,10 @@ public class Example {
     defaultClient.setBasePath("http://sales-data-service:8000/v1");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer saleId = 56; // Integer | Numeric ID of the client to get
     SaleDAO saleDAO = new SaleDAO(); // SaleDAO | The updated sale operation metadata.
     try {
-      apiInstance.updateSaleOperation(saleDAO);
+      apiInstance.updateSaleOperation(saleId, saleDAO);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#updateSaleOperation");
       System.err.println("Status code: " + e.getCode());
@@ -530,6 +537,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **saleId** | **Integer**| Numeric ID of the client to get |
  **saleDAO** | [**SaleDAO**](SaleDAO.md)| The updated sale operation metadata. |
 
 ### Return type
@@ -550,5 +558,6 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | The sale operation metadata successfully updated. |  -  |
 **403** | Updating the sale operation metadata could not be completed. |  -  |
+**404** | Updating the sale operation could not be completed because some meta data could not be found. |  -  |
 **500** | Internal server error. |  -  |
 
